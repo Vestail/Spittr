@@ -9,3 +9,5 @@ buildNumber.properties
 .mvn/timing.properties
 .idea/
 Spittr.iml
+/nbproject/
+nb-configuration.xml

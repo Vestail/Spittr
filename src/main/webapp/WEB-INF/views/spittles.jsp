@@ -15,7 +15,7 @@
     <body>
         <h1>Spittles</h1>
         <c:forEach items="${spittleList}" var="spittle"> 
-            ${spittle.message} | ${spittle.date} <br>
+            <a href="<c:url value="/spittles/${spittle.id}" />"> ${spittle.message} | ${spittle.date} </a> <br>
         </c:forEach>
         <c:forEach begin="1" end="${pageCount}" var="pageNumber">
             <c:choose>

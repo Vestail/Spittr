@@ -8,6 +8,7 @@ package com.vitrenko.spittr.web.controller;
 import com.vitrenko.spittr.model.service.SpittleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,12 +35,18 @@ public class SpittleController {
 
     @RequestMapping(method = RequestMethod.GET, params = {"count"})
     public String spittles(
-            @RequestParam(value = "count") int count, 
+            @RequestParam(value = "count") int count,
             @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
             Model model) {
-        int pageCount = (int)Math.ceil((double)spittleService.count() / count);
+        int pageCount = (int) Math.ceil((double) spittleService.count() / count);
         model.addAttribute(spittleService.find((currentPage - 1) * count, count));
         model.addAttribute("pageCount", pageCount);
         return "spittles";
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String spittle(@PathVariable("id") long id, Model model) {
+        model.addAttribute("spittle", spittleService.find(id));
+        return "spittle";
     }
 }

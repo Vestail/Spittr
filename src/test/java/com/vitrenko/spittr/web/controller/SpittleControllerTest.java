@@ -24,7 +24,7 @@ public class SpittleControllerTest {
     List<Spittle> expectedSpittles = new ArrayList<>();
     SpittleController spittleController = new SpittleController(spittleService);
     MockMvc mockMvc = standaloneSetup(spittleController)
-            .setSingleView(new InternalResourceView("/WEB-INF/views/spittles.jsp"))
+            .setSingleView(new InternalResourceView("/WEB-INF/views/spittle.jsp"))
             .build();
 
     @Test
@@ -50,6 +50,18 @@ public class SpittleControllerTest {
                 .andExpect(view().name("spittles"))
                 .andExpect(model().attributeExists("spittleList"))
                 .andExpect(model().attribute("spittleList", hasItems(expectedSpittles.toArray())));
+    }
+    
+    @Test
+    public void shouldReturnSpittleById() throws Exception {
+        int id = 1;
+        Spittle spittle = new Spittle(id, "message", LocalDate.now());
+        when(spittleService.find(id)).thenReturn(spittle);
+        
+        mockMvc.perform(get("/spittles/" + id))
+                .andExpect(view().name("spittle"))
+                .andExpect(model().attributeExists("spittle"))
+                .andExpect(model().attribute("spittle", spittle));
     }
 
     private void initSpittleList(int count) {

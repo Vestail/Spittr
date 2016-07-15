@@ -19,7 +19,8 @@ import org.springframework.stereotype.Repository;
  * @author Vitalii_Vitrenko
  */
 @Repository
-public class InMemorySpittleRepository implements SpittleRepository {
+public class InMemorySpittleRepository extends InMemoryDomainObjectRepository<Spittle>
+        implements SpittleRepository {
     
     private Map<Long, Spittle> spittles;
     

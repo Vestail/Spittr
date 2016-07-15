@@ -17,8 +17,12 @@ public class Spittle extends DomainObject {
     private LocalDate date;
     private Double latitude;
     private Double longitude;
+    
+    public Spittle() {
+        
+    }
 
-    public Spittle(long id, String message, LocalDate date, Double latitude, Double longitude) {
+    public Spittle(Long id, String message, LocalDate date, Double latitude, Double longitude) {
         super(id);
         this.message = message;
         this.date = date;

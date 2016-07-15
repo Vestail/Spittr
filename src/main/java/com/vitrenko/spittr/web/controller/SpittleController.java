@@ -6,6 +6,7 @@
 package com.vitrenko.spittr.web.controller;
 
 import com.vitrenko.spittr.model.service.SpittleService;
+import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ public class SpittleController {
 
     private final SpittleService spittleService;
 
+    @Inject
     public SpittleController(SpittleService spitterService) {
         this.spittleService = spitterService;
     }

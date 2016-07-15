@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Vitalii_Vitrenko
  */
-public interface SpittleRepository {
+public interface SpittleRepository extends CrudRepository<Spittle, Long> {
 
     List<Spittle> read(int start, int count);
     

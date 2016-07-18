@@ -7,6 +7,7 @@ package com.vitrenko.spittr.model.service;
 
 import com.vitrenko.spittr.model.domain.Spittle;
 import java.util.List;
+import javax.annotation.Nullable;
 
 /**
  *
@@ -18,6 +19,7 @@ public interface SpittleService {
 
     List<Spittle> find();
 
+    @Nullable
     Spittle find(long id);
     
     long count();

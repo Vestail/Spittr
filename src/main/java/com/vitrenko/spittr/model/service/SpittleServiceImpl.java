@@ -8,6 +8,7 @@ package com.vitrenko.spittr.model.service;
 import com.vitrenko.spittr.model.domain.Spittle;
 import com.vitrenko.spittr.model.repository.SpittleRepository;
 import java.util.List;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,7 @@ public class SpittleServiceImpl implements SpittleService {
     }
 
     @Override
+    @Nullable
     public Spittle find(long id) {
         return spittleRepository.read(id);
     }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>Good Thymes Virtual Grocery</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+
+    <body>  
+        <p data-th-text="#{home.welcome(Spitter)}">Welcome to Spitter</p>
+        <div>
+            <a data-th-href="@{/spittles(count=5,currentPage=1)}" >Spittles</a> |
+            <a data-th-href="@{/spitter/register}" >Register</a>
+        </div>
+        <div>
+            <a data-th-href="@{/(locale=ru)}" >RU</a> |
+            <a data-th-href="@{/(locale=en)}" >EN</a>
+        </div>
+    </body>
+
+</html>

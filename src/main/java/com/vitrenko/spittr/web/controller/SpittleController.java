@@ -42,6 +42,7 @@ public class SpittleController {
             Model model) {
         int pageCount = (int) Math.ceil((double) spittleService.count() / count);
         model.addAttribute(spittleService.find((currentPage - 1) * count, count));
+        model.addAttribute("currentPage", currentPage);
         model.addAttribute("pageCount", pageCount);
         return "spittles";
     }

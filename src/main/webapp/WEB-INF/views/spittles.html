@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title data-th-text="#{spittle.spittles}">Spittles</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" data-th-href="@{/resources/css/style.css}">
+    </head>
+    <body>
+        <h1 data-th-text="#{spittle.spittles}">Spittles</h1>
+        <div data-th-each="spittle : ${spittleList}" >
+            <a data-th-href="@{/spittles/{id}(id=${spittle.id})}" 
+               data-th-text="${spittle.message + ' | ' + spittle.date}">Spittle here</a>
+            <br>
+        </div>
+        <div>
+            <ul class="pager">
+                <li class="page" data-th-each="pageNumber : ${#numbers.sequence(1, pageCount)}">
+                    <span data-th-if="${pageNumber == currentPage}" 
+                          data-th-text="${pageNumber}">1</span>
+                    <a data-th-unless="${pageNumber == currentPage}" 
+                       data-th-href="@{/spittles(count=5,currentPage=${pageNumber})}" 
+                       data-th-text="${pageNumber}">2</a>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>

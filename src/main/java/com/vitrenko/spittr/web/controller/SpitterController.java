@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.vitrenko.spittr.web.controller;
 
 import com.vitrenko.spittr.model.domain.Spitter;
 import com.vitrenko.spittr.model.service.SpitterService;
 import javax.inject.Inject;
 import javax.validation.Valid;
+import org.springframework.context.MessageSource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

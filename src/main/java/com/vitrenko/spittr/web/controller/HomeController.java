@@ -1,11 +1,15 @@
 package com.vitrenko.spittr.web.controller;
 
-import javax.inject.Inject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MimeTypeUtils;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * Created by vitalii on 12.07.16.
@@ -18,4 +22,15 @@ public class HomeController {
     public String home() {
         return "home";
     }
+
+
+    @RequestMapping(method = RequestMethod.GET, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map<String, String> homeJson() {
+        Map<String, String> map = new HashMap<>();
+        map.put("page", "home");
+        map.put("status", "success");
+        return map;
+    }
+
 }

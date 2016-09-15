@@ -31,10 +31,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public ViewResolver viewResolver(ITemplateEngine templateEngine) {
-//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//        resolver.setPrefix("/WEB-INF/views/");
-//        resolver.setSuffix(".jsp");
-//        resolver.setExposeContextBeansAsAttributes(true);
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setCharacterEncoding("UTF-8");
         resolver.setTemplateEngine(templateEngine);

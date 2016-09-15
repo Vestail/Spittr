@@ -14,14 +14,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SpitterServiceImpl implements SpitterService {
-    
+
     private final SpitterRepository spitterRepository;
 
     @Inject
     public SpitterServiceImpl(SpitterRepository spitterRepository) {
         this.spitterRepository = Objects.requireNonNull(spitterRepository);
     }
-    
+
     @Override
     public void registerSpitter(Spitter spitter) {
         if (findByLogin(spitter.getLogin()) != null) {
@@ -29,10 +29,13 @@ public class SpitterServiceImpl implements SpitterService {
         }
         spitterRepository.save(spitter);
     }
-    
+
     @Nullable
     @Override
     public Spitter findByLogin(String login) {
         return spitterRepository.readByLogin(login);
     }
+
+
+
 }

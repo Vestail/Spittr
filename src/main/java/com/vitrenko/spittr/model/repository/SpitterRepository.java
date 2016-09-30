@@ -14,5 +14,5 @@ import com.vitrenko.spittr.model.domain.Spitter;
  */
 public interface SpitterRepository extends CrudRepository<Spitter, Long> {
     
-    Spitter readByLogin(String login);
+    Spitter findByLogin(String login);
 }

@@ -5,13 +5,19 @@
  */
 package com.vitrenko.spittr.model.domain;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.*;
 import org.hibernate.validator.constraints.Email;
+
+import java.util.List;
 
 /**
  *
  * @author Vitalii_Vitrenko
  */
+@Entity
 public class Spitter extends DomainObject {
 
     @NotNull
@@ -24,11 +30,19 @@ public class Spitter extends DomainObject {
 
     @Email
     @NotNull
+    @Size(max = 50)
     private String email;
 
+    @NotNull
+    @Size(max = 50)
     private String firstName;
 
+    @NotNull
+    @Size(max = 50)
     private String lastName;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "spitter")
+    private List<Spittle> spittles;
 
     public Spitter() {
 
@@ -83,4 +97,11 @@ public class Spitter extends DomainObject {
         this.password = password;
     }
 
+    public List<Spittle> getSpittles() {
+        return spittles;
+    }
+
+    public void setSpittles(List<Spittle> spittles) {
+        this.spittles = spittles;
+    }
 }

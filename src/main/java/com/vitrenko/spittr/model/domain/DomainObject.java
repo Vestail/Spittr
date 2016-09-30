@@ -1,11 +1,14 @@
 package com.vitrenko.spittr.model.domain;
 
 import java.util.Objects;
+import javax.persistence.*;
 import javax.validation.constraints.Null;
 
+@MappedSuperclass
 public class DomainObject {
 
-    @Null
+    @Id
+    @GeneratedValue
     private Long id;
 
     public DomainObject() {

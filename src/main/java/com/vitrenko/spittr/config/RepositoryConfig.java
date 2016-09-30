@@ -13,12 +13,14 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import javax.xml.crypto.Data;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by Vitalii_Vitrenko on 9/15/2016.
@@ -39,10 +41,11 @@ public class RepositoryConfig {
     }
 
 
+    @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-        jpaVendorAdapter.setDatabase(Database.MYSQL);
-        jpaVendorAdapter.setShowSql(true);
+        jpaVendorAdapter.setDatabase(Database.POSTGRESQL);
+        jpaVendorAdapter.setGenerateDdl(true);
         return jpaVendorAdapter;
     }
 
@@ -51,12 +54,22 @@ public class RepositoryConfig {
         return new JpaTransactionManager(entityManagerFactory);
     }
 
-    LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactory.setDataSource(dataSource);
         entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
         entityManagerFactory.setPackagesToScan("com.vitrenko.spittr.model");
+        entityManagerFactory.setJpaProperties(hibirnateProperties());
         return entityManagerFactory;
+    }
+
+    public Properties hibirnateProperties() {
+        Properties properties = new Properties();
+        properties.put("hibernate.format_sql", true);
+        properties.put("hibernate.use_sql_comments", true);
+        properties.put("hibernate.show_sql", true);
+        return properties;
     }
 
     @Bean

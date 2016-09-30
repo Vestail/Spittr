@@ -5,29 +5,38 @@
  */
 package com.vitrenko.spittr.model.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
 /**
- *
  * @author Vitalii_Vitrenko
  */
+@Entity
 public class Spittle extends DomainObject {
 
+    @NotNull
     private String message;
+
+    @Past
     private LocalDate date;
-    private Double latitude;
-    private Double longitude;
-    
+
+    @ManyToOne()
+    @JoinColumn(nullable = false)
+    private Spitter spitter;
+
     public Spittle() {
-        
+
     }
 
     public Spittle(Long id, String message, LocalDate date, Double latitude, Double longitude) {
         super(id);
         this.message = message;
         this.date = date;
-        this.latitude = latitude;
-        this.longitude = longitude;
+
     }
 
     public Spittle(long id, String message, LocalDate date) {
@@ -50,19 +59,4 @@ public class Spittle extends DomainObject {
         this.date = date;
     }
 
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
 }

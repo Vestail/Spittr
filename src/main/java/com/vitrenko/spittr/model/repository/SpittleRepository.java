@@ -9,9 +9,4 @@ import java.util.List;
  */
 public interface SpittleRepository extends CrudRepository<Spittle, Long> {
 
-    List<Spittle> read(int start, int count);
-    
-    long size();
-
-    Spittle read(long id);
 }

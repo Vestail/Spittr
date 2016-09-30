@@ -11,7 +11,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" data-th-href="@{/resources/css/style.css}">
     </head>
-    <body>
+    <body data-th-if="${pageCount > 0}">
         <h1 data-th-text="#{spittle.spittles}">Spittles</h1>
         <div data-th-each="spittle : ${spittleList}" >
             <a data-th-href="@{/spittles/{id}(id=${spittle.id})}" 
@@ -29,5 +29,8 @@ and open the template in the editor.
                 </li>
             </ul>
         </div>
+    </body>
+    <body data-th-unless="${pageCount > 0}">
+        <h2 data-th-text="#{spittle.noSpittle}">No spittle yet</h2>
     </body>
 </html>

@@ -5,17 +5,29 @@
  */
 package com.vitrenko.spittr.model.repository;
 
+import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 /**
- *
  * @author Vitalii_Vitrenko
  */
-public interface CrudRepository<T, PK> {
-    
-    T read(PK pk);
-    Collection<T> read();
-    void save(T entity);
+public interface CrudRepository<T, PK extends Serializable> {
+
+    T find(PK pk);
+
+    List<T> find();
+
+    List<T> find(int from, int to);
+
+    void create(T entity);
+
+    T merge(T entity);
+
     void delete(T entity);
-            
+
+    void delete(PK primaryKey);
+
+    long size();
+
 }

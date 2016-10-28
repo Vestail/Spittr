@@ -9,6 +9,7 @@
             <div class="errors" data-th-if="${#fields.hasErrors('*')}">
                 <ul>
                     <li data-th-each="error : ${#fields.errors('*')}" data-th-text="${error}">Error here</li>
+                    <li data-th-if="${loginExist}" data-th-text="#{spitter.loginExist}"></li>
                 </ul>
             </div>
             <div>

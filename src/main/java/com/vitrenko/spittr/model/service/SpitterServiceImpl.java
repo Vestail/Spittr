@@ -5,7 +5,7 @@ import com.vitrenko.spittr.model.repository.SpitterRepository;
 import java.util.Objects;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
-import org.springframework.dao.DataIntegrityViolationException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +27,7 @@ public class SpitterServiceImpl implements SpitterService {
     @Override
     public void registerSpitter(Spitter spitter) {
         if (findByLogin(spitter.getLogin()) != null) {
-            throw new DataIntegrityViolationException("spitter with login " + spitter.getLogin() + " already exists");
+            throw new SpitterAlreadyExistsException(spitter);
         }
         spitterRepository.create(spitter);
     }

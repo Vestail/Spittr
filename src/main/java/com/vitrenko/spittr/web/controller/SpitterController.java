@@ -1,23 +1,21 @@
 package com.vitrenko.spittr.web.controller;
 
 import com.vitrenko.spittr.model.domain.Spitter;
+import com.vitrenko.spittr.model.service.SpitterAlreadyExistsException;
 import com.vitrenko.spittr.model.service.SpitterService;
+
 import javax.inject.Inject;
 import javax.validation.Valid;
-import org.springframework.context.MessageSource;
-import org.springframework.dao.DataIntegrityViolationException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
-/**
- *
- * @author Vitalii_Vitrenko
- */
 @Controller
 @RequestMapping("/spitter")
 public class SpitterController {
@@ -41,12 +39,7 @@ public class SpitterController {
         if (errors.hasErrors()) {
             return "registerForm";
         }
-        try {
-            spitterService.registerSpitter(spitter);
-        } catch (DataIntegrityViolationException ex) {
-            errors.addError(new ObjectError("spitter", "user with login " + spitter.getLogin() + " already exists"));
-            return "registerForm";
-        }
+        spitterService.registerSpitter(spitter);
         return "redirect:/spitter/" + spitter.getLogin();
     }
 
@@ -58,5 +51,13 @@ public class SpitterController {
         }
         model.addAttribute("spitter", spitter);
         return "profile";
+    }
+
+    @ExceptionHandler(SpitterAlreadyExistsException.class)
+    public ModelAndView spitterExists(SpitterAlreadyExistsException exception) {
+        ModelAndView modelView = new ModelAndView("registerForm");
+        modelView.getModelMap().addAttribute(exception.getSpitter());
+        modelView.getModelMap().addAttribute("loginExist", true);
+        return modelView;
     }
 }

@@ -1,11 +1,11 @@
 package com.vitrenko.spittr.config;
 
-import javax.servlet.ServletContext;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -21,11 +21,11 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
-/**
- * Created by vitalii on 12.07.16.
- */
+import javax.servlet.ServletContext;
+
 @Configuration
 @EnableWebMvc
+@EnableSpringDataWebSupport
 @ComponentScan("com.vitrenko.spittr.web")
 public class WebConfig extends WebMvcConfigurerAdapter {
 

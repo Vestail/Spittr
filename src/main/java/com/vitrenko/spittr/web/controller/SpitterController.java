@@ -39,8 +39,8 @@ public class SpitterController {
         if (errors.hasErrors()) {
             return "registerForm";
         }
-        spitterService.registerSpitter(spitter);
-        return "redirect:/spitter/" + spitter.getLogin();
+        Spitter registeredSpitter = spitterService.registerSpitter(spitter);
+        return "redirect:/spitter/" + registeredSpitter.getLogin();
     }
 
     @RequestMapping(value = "/{login}", method = RequestMethod.GET)
@@ -57,7 +57,7 @@ public class SpitterController {
     public ModelAndView spitterExists(SpitterAlreadyExistsException exception) {
         ModelAndView modelView = new ModelAndView("registerForm");
         modelView.getModelMap().addAttribute(exception.getSpitter());
-        modelView.getModelMap().addAttribute("loginExist", true);
+        modelView.getModelMap().addAttribute("loginExists", true);
         return modelView;
     }
 }

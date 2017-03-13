@@ -2,17 +2,22 @@ package com.vitrenko.spittr.web.controller;
 
 import com.vitrenko.spittr.model.domain.Spittle;
 import com.vitrenko.spittr.model.service.SpittleService;
+import org.hamcrest.CoreMatchers;
+import org.junit.Test;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.servlet.view.InternalResourceView;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
+
 import static org.junit.matchers.JUnitMatchers.hasItems;
-import static org.mockito.Mockito.*;
-import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
-import org.springframework.web.servlet.view.InternalResourceView;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 /**
  *
@@ -27,47 +32,8 @@ public class SpittleControllerTest {
             .setSingleView(new InternalResourceView("/WEB-INF/views/spittle.jsp"))
             .build();
 
-    @Test
-    public void shouldReturnSpittleList() throws Exception {
-        int size = 10;
-        initSpittleList(size);
-        when(spittleService.find()).thenReturn(expectedSpittles);
 
-        mockMvc.perform(get("/spittles"))
-                .andExpect(view().name("spittles"))
-                .andExpect(model().attributeExists("spittleList"))
-                .andExpect(model().attribute("spittleList", hasItems(expectedSpittles.toArray())));
-    }
 
-    @Test
-    public void shouldReturnPagedSpittleList() throws Exception {
-        int count = 10;
-        int start = 0;
-        initSpittleList(count);
-        when(spittleService.find(start, count)).thenReturn(expectedSpittles);
 
-        mockMvc.perform(get("/spittles?count=" + count))
-                .andExpect(view().name("spittles"))
-                .andExpect(model().attributeExists("spittleList"))
-                .andExpect(model().attribute("spittleList", hasItems(expectedSpittles.toArray())));
-    }
-    
-    @Test
-    public void shouldReturnSpittleById() throws Exception {
-        int id = 1;
-        Spittle spittle = new Spittle(id, "message", LocalDate.now());
-        when(spittleService.find(id)).thenReturn(spittle);
-        
-        mockMvc.perform(get("/spittles/" + id))
-                .andExpect(view().name("spittle"))
-                .andExpect(model().attributeExists("spittle"))
-                .andExpect(model().attribute("spittle", spittle));
-    }
-
-    private void initSpittleList(int count) {
-        for (int i = 1; i <= count; i++) {
-            expectedSpittles.add(new Spittle(i, Integer.toString(i), LocalDate.now()));
-        }
-    }
 
 }

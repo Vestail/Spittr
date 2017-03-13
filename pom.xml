@@ -8,9 +8,9 @@
     <name>spittr</name>
     <url>http://maven.apache.org</url>
     <properties>
-        <spring.version>4.3.2.RELEASE</spring.version>
-        <spring-data-jpa.version>1.10.3.RELEASE</spring-data-jpa.version>
-        <hibernate-orm.version>5.2.2.Final</hibernate-orm.version>
+        <spring.version>4.3.7.RELEASE</spring.version>
+        <spring-data-jpa.version>1.11.1.RELEASE</spring-data-jpa.version>
+        <hibernate-orm.version>5.2.8.Final</hibernate-orm.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -70,11 +70,6 @@
             <version>3.1.0</version>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.4</version>
@@ -93,6 +88,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.21</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.14</version>
         </dependency>
         <dependency>
             <groupId>org.thymeleaf</groupId>
@@ -169,7 +169,7 @@
                     <stopPort>9966</stopPort>
                     <stopKey>stop</stopKey>
                     <stopWait>10</stopWait>
-                    <contextXml>${project.basedir}/src/test/resources/jetty.xml</contextXml>
+                    <contextXml>${project.basedir}/jetty.xml</contextXml>
                 </configuration>
                 <dependencies>
                     <dependency>

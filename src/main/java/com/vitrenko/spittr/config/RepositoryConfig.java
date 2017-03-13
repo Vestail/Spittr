@@ -1,8 +1,10 @@
 package com.vitrenko.spittr.config;
 
+import com.vitrenko.spittr.model.repository.SpitterRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -22,11 +24,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-/**
- * Created by Vitalii_Vitrenko on 9/15/2016.
- */
 @Configuration
 @EnableTransactionManagement
+@EnableJpaRepositories(basePackageClasses = SpitterRepository.class)
 public class RepositoryConfig {
 
     public static final String JNDI_NAME = "jdbc/dataSource";

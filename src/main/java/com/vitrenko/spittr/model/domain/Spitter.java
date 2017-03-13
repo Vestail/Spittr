@@ -5,23 +5,32 @@
  */
 package com.vitrenko.spittr.model.domain;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.*;
+
+import lombok.*;
 import org.hibernate.validator.constraints.Email;
 
 import java.util.List;
 
 /**
- *
  * @author Vitalii_Vitrenko
  */
 @Entity
-public class Spitter extends DomainObject {
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@EqualsAndHashCode(exclude = "spittles")
+public class Spitter {
+
+    @Id
+    @GeneratedValue
+    private Long id;
 
     @NotNull
     @Size(min = 4, max = 16)
+    @Column(unique = true)
     private String login;
 
     @NotNull
@@ -31,6 +40,7 @@ public class Spitter extends DomainObject {
     @Email
     @NotNull
     @Size(max = 50)
+    @Column(unique = true)
     private String email;
 
     @NotNull
@@ -41,67 +51,7 @@ public class Spitter extends DomainObject {
     @Size(max = 50)
     private String lastName;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "spitter")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "spitter", orphanRemoval = true)
     private List<Spittle> spittles;
 
-    public Spitter() {
-
-    }
-
-    public Spitter(Long id, String login, String password, String email, String firstName, String lastName) {
-        super(id);
-        this.login = login;
-        this.password = password;
-        this.email = email;
-        this.lastName = lastName;
-        this.firstName = firstName;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<Spittle> getSpittles() {
-        return spittles;
-    }
-
-    public void setSpittles(List<Spittle> spittles) {
-        this.spittles = spittles;
-    }
 }

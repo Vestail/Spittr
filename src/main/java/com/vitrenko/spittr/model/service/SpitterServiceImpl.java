@@ -2,12 +2,13 @@ package com.vitrenko.spittr.model.service;
 
 import com.vitrenko.spittr.model.domain.Spitter;
 import com.vitrenko.spittr.model.repository.SpitterRepository;
-import java.util.Objects;
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Nullable;
+import javax.inject.Inject;
 
 /**
  *
@@ -15,21 +16,19 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class SpitterServiceImpl implements SpitterService {
 
+    @Inject
+    @NonNull
     private final SpitterRepository spitterRepository;
 
-    @Inject
-    public SpitterServiceImpl(SpitterRepository spitterRepository) {
-        this.spitterRepository = Objects.requireNonNull(spitterRepository);
-    }
-
     @Override
-    public void registerSpitter(Spitter spitter) {
+    public Spitter registerSpitter(Spitter spitter) {
         if (findByLogin(spitter.getLogin()) != null) {
             throw new SpitterAlreadyExistsException(spitter);
         }
-        spitterRepository.create(spitter);
+        return spitterRepository.save(spitter);
     }
 
     @Nullable
@@ -37,6 +36,5 @@ public class SpitterServiceImpl implements SpitterService {
     public Spitter findByLogin(String login) {
         return spitterRepository.findByLogin(login);
     }
-
 
 }

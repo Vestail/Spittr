@@ -8,21 +8,21 @@
         <form method="POST" data-th-object="${spitter}" >
             <div class="errors" data-th-if="${#fields.hasErrors('*')}">
                 <ul>
+
                     <li data-th-each="error : ${#fields.errors('*')}" data-th-text="${error}">Error here</li>
-                    <li data-th-if="${loginExist}" data-th-text="#{spitter.loginExist}"></li>
                 </ul>
             </div>
             <div>
                 <label for="login" data-th-text="#{spitter.login}">Login</label>
-                <input type="text" data-th-field="*{login}" data-th-errorclass="input-error" ><br>
+                <input id="login" type="text" data-th-field="*{login}" data-th-errorclass="input-error" ><br>
                 <label for="email" data-th-text="#{spitter.email}">Email</label>
-                <input type="text" data-th-field="*{email}" data-th-errorclass="input-error" ><br>
+                <input id="email" type="text" data-th-field="*{email}" data-th-errorclass="input-error" ><br>
                 <label for="password" data-th-text="#{spitter.password}">Password</label>
-                <input type="password" data-th-field="*{password}" data-th-errorclass="input-error" ><br>
+                <input id="password" type="password" data-th-field="*{password}" data-th-errorclass="input-error" ><br>
                 <label for="firstName" data-th-text="#{spitter.firstName}">First Name</label>
-                <input type="text" data-th-field="*{firstName}" data-th-errorclass="input-error" ><br>
+                <input id="firstName" type="text" data-th-field="*{firstName}" data-th-errorclass="input-error" ><br>
                 <label for="lastName" data-th-text="#{spitter.lastName}">Last Name</label>
-                <input type="text" data-th-field="*{lastName}" data-th-errorclass="input-error" ><br>
+                <input id="lastName" type="text" data-th-field="*{lastName}" data-th-errorclass="input-error" ><br>
                 <input type="submit" value="Register" data-th-value="#{spitter.register}" >
             </div>
         </form>

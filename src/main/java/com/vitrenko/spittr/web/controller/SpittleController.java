@@ -7,6 +7,9 @@ package com.vitrenko.spittr.web.controller;
 
 import com.vitrenko.spittr.model.service.SpittleService;
 import javax.inject.Inject;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,15 +40,9 @@ public class SpittleController {
 
     @RequestMapping(method = RequestMethod.GET, params = {"count"})
     public String spittles(
-            @RequestParam(value = "count") int count,
-            @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+            @PageableDefault(sort = {"date"}, size = 10) Pageable pageable,
             Model model) {
-
-        int pageCount = (int) Math.ceil((double) spittleService.count() / count);
-        model.addAttribute(spittleService.find((currentPage - 1) * count, count));
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("pageCount", pageCount);
-
+        model.addAttribute("spittlePage", spittleService.find(pageable));
         return "spittles";
     }
 

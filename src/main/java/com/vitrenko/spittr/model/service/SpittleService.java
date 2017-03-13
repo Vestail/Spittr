@@ -6,8 +6,11 @@
 package com.vitrenko.spittr.model.service;
 
 import com.vitrenko.spittr.model.domain.Spittle;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  *
@@ -15,7 +18,7 @@ import javax.annotation.Nullable;
  */
 public interface SpittleService {
 
-    List<Spittle> find(int start, int count);
+    Page<Spittle> find(Pageable page);
 
     List<Spittle> find();
 

@@ -7,6 +7,8 @@ package com.vitrenko.spittr.web.controller;
 
 import com.vitrenko.spittr.model.domain.Spitter;
 import com.vitrenko.spittr.model.service.SpitterService;
+
+import java.util.ArrayList;
 import java.util.Objects;
 import org.hamcrest.Matchers;
 import org.hamcrest.beans.HasPropertyWithValue;
@@ -41,7 +43,7 @@ public class SpitterControllerTest {
 
     @Test
     public void shouldPerfomRegistration() throws Exception {
-        Spitter spitter = new Spitter(null, "login", "password", "email@email.com", "fname", "lname");
+        Spitter spitter = new Spitter(null, "login", "password", "email@email.com", "fname", "lname", new ArrayList<>());
 
         mockMvc.perform(post("/spitter/register")
                 .param("id", Objects.toString(spitter.getId(), ""))
@@ -57,7 +59,7 @@ public class SpitterControllerTest {
 
     @Test
     public void shoudShowRegisterFormWhenHasErrors() throws Exception {
-        Spitter spitterWithError = new Spitter(null, "login", "123", "asdxsdfgs@dasfdsf.ru", "fname", "lname");
+        Spitter spitterWithError = new Spitter(null, "login", "123", "asdxsdfgs@dasfdsf.ru", "fname", "lname", new ArrayList<>());
 
         mockMvc.perform(post("/spitter/register")
                 .param("id", Objects.toString(spitterWithError.getId(), ""))

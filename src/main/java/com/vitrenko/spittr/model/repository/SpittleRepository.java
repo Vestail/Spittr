@@ -1,12 +1,11 @@
 package com.vitrenko.spittr.model.repository;
 
 import com.vitrenko.spittr.model.domain.Spittle;
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- *
  * @author Vitalii_Vitrenko
  */
-public interface SpittleRepository extends CrudRepository<Spittle, Long> {
+public interface SpittleRepository extends JpaRepository<Spittle, Long> {
 
 }

@@ -13,7 +13,7 @@ import com.vitrenko.spittr.model.domain.Spitter;
  */
 public interface SpitterService {
 
-    void registerSpitter(Spitter spitter);
+    Spitter registerSpitter(Spitter spitter);
 
     Spitter findByLogin(String login);
 }

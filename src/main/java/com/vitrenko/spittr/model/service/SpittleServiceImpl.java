@@ -7,11 +7,16 @@ package com.vitrenko.spittr.model.service;
 
 import com.vitrenko.spittr.model.domain.Spittle;
 import com.vitrenko.spittr.model.repository.SpittleRepository;
-import java.util.List;
-import javax.annotation.Nullable;
-import javax.inject.Inject;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import java.util.List;
 
 /**
  *
@@ -19,34 +24,32 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class SpittleServiceImpl implements SpittleService {
 
+    @Inject
+    @NonNull
     private final SpittleRepository spittleRepository;
 
-    @Inject
-    public SpittleServiceImpl(SpittleRepository spittleRepository) {
-        this.spittleRepository = spittleRepository;
-    }
-    
     @Override
-    public List<Spittle> find(int start, int count) {
-        return spittleRepository.find(start, count);
+    public Page<Spittle> find(Pageable page) {
+        return spittleRepository.findAll(page);
     }
 
     @Override
     @Nullable
     public Spittle find(long id) {
-        return spittleRepository.find(id);
+        return spittleRepository.findOne(id);
     }
 
     @Override
     public List<Spittle> find() {
-        return find(0, Integer.MAX_VALUE);
+        return spittleRepository.findAll();
     }
 
     @Override
     public long count() {
-        return spittleRepository.size();
+        return spittleRepository.count();
     }
     
 }

@@ -5,9 +5,9 @@
  */
 package com.vitrenko.spittr.model.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import lombok.*;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
@@ -16,7 +16,16 @@ import java.time.LocalDate;
  * @author Vitalii_Vitrenko
  */
 @Entity
-public class Spittle extends DomainObject {
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@EqualsAndHashCode(exclude = "spitter")
+public class Spittle {
+
+    @Id
+    @GeneratedValue
+    private Long id;
 
     @NotNull
     private String message;
@@ -24,39 +33,8 @@ public class Spittle extends DomainObject {
     @Past
     private LocalDate date;
 
-    @ManyToOne()
+    @ManyToOne(optional = false)
     @JoinColumn(nullable = false)
     private Spitter spitter;
-
-    public Spittle() {
-
-    }
-
-    public Spittle(Long id, String message, LocalDate date, Double latitude, Double longitude) {
-        super(id);
-        this.message = message;
-        this.date = date;
-
-    }
-
-    public Spittle(long id, String message, LocalDate date) {
-        this(id, message, date, null, null);
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
 
 }

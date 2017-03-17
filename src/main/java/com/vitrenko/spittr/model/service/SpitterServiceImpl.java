@@ -4,11 +4,17 @@ import com.vitrenko.spittr.model.domain.Spitter;
 import com.vitrenko.spittr.model.repository.SpitterRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Predicate;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+
+import static org.springframework.data.domain.ExampleMatcher.matching;
 
 /**
  *
@@ -25,10 +31,11 @@ public class SpitterServiceImpl implements SpitterService {
 
     @Override
     public Spitter registerSpitter(Spitter spitter) {
-        if (findByLogin(spitter.getLogin()) != null) {
-            throw new SpitterAlreadyExistsException(spitter);
+        try {
+            return spitterRepository.save(spitter);
+        } catch (DataIntegrityViolationException ex) {
+            throw new SpitterAlreadyExistsException(spitter.getLogin(), spitter.getEmail());
         }
-        return spitterRepository.save(spitter);
     }
 
     @Nullable

@@ -55,9 +55,7 @@ public class SpitterController {
 
     @ExceptionHandler(SpitterAlreadyExistsException.class)
     public ModelAndView spitterExists(SpitterAlreadyExistsException exception) {
-        ModelAndView modelView = new ModelAndView("registerForm");
-        modelView.getModelMap().addAttribute(exception.getSpitter());
-        modelView.getModelMap().addAttribute("loginExists", true);
+        ModelAndView modelView = new ModelAndView("registerForm", "loginExistException", exception);
         return modelView;
     }
 }
